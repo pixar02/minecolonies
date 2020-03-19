@@ -14,6 +14,7 @@ import com.minecolonies.api.colony.IColonyManager;
 import com.minecolonies.api.colony.buildings.IBuilding;
 import com.minecolonies.api.compatibility.candb.ChiselAndBitsCheck;
 import com.minecolonies.api.tileentities.TileEntityColonyBuilding;
+import com.minecolonies.api.tileentities.TileEntityRack;
 import com.minecolonies.api.util.Log;
 import com.minecolonies.coremod.blocks.BlockMinecoloniesRack;
 import com.minecolonies.coremod.blocks.schematic.BlockWaypoint;
@@ -25,8 +26,8 @@ import net.minecraft.block.Blocks;
 import net.minecraft.item.BlockItem;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.CompoundNBT;
-import net.minecraft.tileentity.TileEntity;
 import net.minecraft.tileentity.ChestTileEntity;
+import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.Direction;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
@@ -153,6 +154,11 @@ public final class MinecoloniesPlacementHandlers
                 if (tileEntityData != null)
                 {
                     handleTileEntityPlacement(tileEntityData, world, pos);
+                }
+                if (entity instanceof TileEntityRack)
+                {
+                    final BlockState newState = BlockMinecoloniesRack.getPlacementState(blockState, world.getTileEntity(pos), pos);
+                    world.setBlockState(pos, newState);
                 }
             }
             return blockState;
